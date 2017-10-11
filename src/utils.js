@@ -2,9 +2,17 @@ export const isDefined = val => val != null
 export const isFunction = val => typeof val === 'function'
 export const noop = _ => { }
 
-export const newScript = (src) => (cb) => {
+export const newScript = (src, attributes, dangerouslySetInnerHtml) => (cb) => {
   const script = document.createElement('script')
   script.src = src
+  if (attributes) {
+    Object.keys(attributes).forEach(attribute => {
+      script.setAttribute(attribute, attributes[attribute]);
+    });
+  }
+  if (dangerouslySetInnerHtml) {
+    script.innerHTML = dangerouslySetInnerHtml;
+  }
   script.addEventListener('load', () => cb(null, src))
   script.addEventListener('error', () => cb(true, src))
   document.body.appendChild(script)

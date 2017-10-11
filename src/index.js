@@ -9,14 +9,20 @@ let failedScript = []
 
 export function startLoadingScripts(scripts, onComplete = noop) {
   // sequence load
-  const loadNewScript = (src) => {
+  const loadNewScript = (script) => {
+    let src, attributes, dangerouslySetInnerHtml;
+    if (Array.isArray(script)) {
+      [src, attributes, dangerouslySetInnerHtml] = script;
+    } else {
+      src = script;
+    }
     if (loadedScript.indexOf(src) < 0) {
       return taskComplete => {
         const callbacks = pendingScripts[src] || []
         callbacks.push(taskComplete)
         pendingScripts[src] = callbacks
         if (callbacks.length === 1) {
-          return newScript(src)(err => {
+          return newScript(src, attributes, dangerouslySetInnerHtml)(err => {
             pendingScripts[src].forEach(cb => cb(err, src))
             delete pendingScripts[src]
           })
