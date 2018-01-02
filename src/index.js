@@ -54,9 +54,16 @@ export function startLoadingScripts(scripts, onComplete = noop) {
 }
 
 const addCache = (entry) => {
-  if (loadedScript.indexOf(entry) < 0) {
+  /**
+   * addCache function has been intentionally disabled as it does not makes duplicate request based on the url
+   * provided. As of now only FacebookPage and ShareButtons are using it. In case when more components start to
+   * use this library, the functionality of enabling / disabling the caching can be made as input flag from the
+   * client.
+   * Vishal Raj <vishalr@b-one.net> Jan 02 2018
+   */
+  /*if (loadedScript.indexOf(entry) < 0) {
     loadedScript.push(entry)
-  }
+  }/**/
 }
 
 const removeFailedScript = () => {
