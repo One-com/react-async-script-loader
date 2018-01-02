@@ -1,6 +1,6 @@
 {
   "name": "@one.com/react-async-script-loader-patch",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A decorator for script lazy loading on react component",
   "main": "lib/index.js",
   "scripts": {
